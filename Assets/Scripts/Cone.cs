@@ -1,16 +1,19 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System;
 
 public class Cone : MonoBehaviour
 {
-    public Vector2 directionEnemy;
     public float angleCone;
     public float distanceCone;
     public LayerMask maskObstacle;
 
+    private Dude I;
+
     // Use this for initialization
-    void Start ()
+    void Awake ()
     {
+        I = GetComponent<Dude>();
 	
 	}
 
@@ -18,8 +21,10 @@ public class Cone : MonoBehaviour
     void Update()
     {
         Vector2 auxDifference = MovePlayer.player.position - transform.position;
+        Vector2 directionEnemy = GetComponent<Dude>().directionEnemy;
 
         //Il personaggio è nel cono visuale?
+        I.isViewPlayer = false;
         if (Vector3.Angle(directionEnemy, auxDifference) < angleCone / 2 && auxDifference.magnitude < distanceCone)
         {
 
@@ -32,6 +37,7 @@ public class Cone : MonoBehaviour
                 Debug.Log("preso");
             }
 
+            I.isViewPlayer = !Convert.ToBoolean(hit.collider);
         }
     }
 }
