@@ -21,8 +21,7 @@ public class Damage : MonoBehaviour {
 	}
 	
 	void Update() {
-		// DEBUG
-		if (Input.GetKeyUp(KeyCode.F)) Active = !Active;
+		if (GameManager.Instance.IsGameOver) return;
 
 		if (Active) {
 			level += fadeInSpeed;
