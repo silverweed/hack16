@@ -5,10 +5,10 @@ using System.Collections.Generic;
 public class Npc : MonoBehaviour
 {
     public Vector2 direction;
-    private bool canSeePlayer;
+    protected bool canSeePlayer;
     protected Dictionary<Direction, Vector2> dictonaryVector;
 
-    public bool CanSeePlayer
+    public virtual bool CanSeePlayer
     {
         get { return canSeePlayer; }
         set
