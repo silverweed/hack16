@@ -8,8 +8,8 @@ public class Cone : MonoBehaviour
     public float distanceCone;
     public float damagePerSecond = 20f;
 
-    LayerMask maskObstacle;
-    Npc owner;
+    private LayerMask maskObstacle;
+    private Npc owner;
 
     // Use this for initialization
     void Awake ()
@@ -19,7 +19,7 @@ public class Cone : MonoBehaviour
 
 
     void Start() {
-	maskObstacle = LayerMask.NameToLayer("Player");
+	maskObstacle = LayerMask.NameToLayer("Obstacle");
     }
 
     // Update is called once per frame
@@ -32,14 +32,13 @@ public class Cone : MonoBehaviour
         owner.CanSeePlayer = false;
         if (Vector3.Angle(directionEnemy, auxDifference) < angleCone / 2 && auxDifference.magnitude < distanceCone)
         {
-
             float dist = Vector2.Distance(MovePlayer.player.position, transform.position);
             RaycastHit2D hit = Physics2D.Raycast(transform.position, auxDifference.normalized, dist, maskObstacle);
 
             //tra personaggio e il soldato ci sono ostacoli?
             if (hit.collider == null)
             {
-		    PlayerSeen();
+                PlayerSeen();
             }
 
             owner.CanSeePlayer = !Convert.ToBoolean(hit.collider);
@@ -47,7 +46,7 @@ public class Cone : MonoBehaviour
     }
 
     void PlayerSeen() {
-	UIManager.Instance.Damage.Active = true;
-	UIManager.Instance.Stressbar.Damage(Time.deltaTime * damagePerSecond);
+	//UIManager.Instance.Damage.Active = true;
+	//UIManager.Instance.Stressbar.Damage(Time.deltaTime * damagePerSecond);
     }
 }
