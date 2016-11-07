@@ -38,7 +38,8 @@ namespace FMOD
 #elif UNITY_EDITOR_OSX || (UNITY_STANDALONE_OSX && DEVELOPMENT_BUILD)
         public const string dll    = "fmodl";
 #else
-        public const string dll    = "fmod";
+	//public const string dll = "fmod";
+        public const string dll    = "libfmod.so";
 #endif
     }
 
