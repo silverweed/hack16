@@ -8,18 +8,14 @@ public class Dude : Npc
     public Direction[] directions;
 
     private int index;
-    private Dictionary<Direction, Vector2> dictonaryVector;
+    
 
-    void Awake()
+    protected override void Awake()
     {
         index = 0;
         CanSeePlayer = false;
 
-        dictonaryVector = new Dictionary<Direction, Vector2>();
-        dictonaryVector.Add(Direction.South, Vector2.down);
-        dictonaryVector.Add(Direction.North, Vector2.up);
-        dictonaryVector.Add(Direction.East, Vector2.left);
-        dictonaryVector.Add(Direction.West, Vector2.right);
+        
 
         Invoke("Turn", timeWait);
 
