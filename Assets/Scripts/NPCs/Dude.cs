@@ -12,13 +12,10 @@ public class Dude : Npc
 
     protected override void Awake()
     {
+        base.Awake();
         index = 0;
         CanSeePlayer = false;
-
-        
-
         Invoke("Turn", timeWait);
-
     }
 
     public void Turn()

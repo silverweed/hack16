@@ -25,8 +25,9 @@ public class Guy : Npc
     }
 
     // Use this for initialization
-    void Awake()
+    protected override void Awake()
     {
+        base.Awake();
         way = GetComponent<WayPoint>();
     }
 }
