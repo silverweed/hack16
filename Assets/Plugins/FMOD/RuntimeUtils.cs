@@ -325,7 +325,9 @@ namespace FMODUnity
 					string packageName = dirInfo.Parent.Name;
 	                string pluginFolder = "/data/data/" + packageName + "/lib/";
 	            #else
-	                string pluginFolder = "";
+                    string pluginFolder = Application.dataPath + ((IntPtr.Size == 8) ? "/Plugins/x86_64/" : "/Plugins/x86/");
+	                string pluginFileName = "lib" + pluginName + ".so";
+			//string pluginFolder = "";
 	            #endif
 
 	            return pluginFolder + pluginFileName;
