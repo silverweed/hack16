@@ -1,12 +1,8 @@
 ﻿using UnityEngine;
 using System.Collections.Generic;
 
-public class Dude : MonoBehaviour
+public class Dude : Npc
 {
-    public Vector2 directionEnemy;
-    public enum Direction { South, North, West, East}
-    public bool isViewPlayer { get; set; }
-
     [Range(0, 5)]
     public float timeWait;
     public Direction[] directions;
@@ -17,7 +13,7 @@ public class Dude : MonoBehaviour
     void Awake()
     {
         index = 0;
-        isViewPlayer = false;
+        CanSeePlayer = false;
 
         dictonaryVector = new Dictionary<Direction, Vector2>();
         dictonaryVector.Add(Direction.South, Vector2.down);
@@ -31,9 +27,9 @@ public class Dude : MonoBehaviour
 
     public void Turn()
     {
-        if (!isViewPlayer)
+        if (!CanSeePlayer)
         {
-            directionEnemy = dictonaryVector[directions[index++]];
+            direction = dictonaryVector[directions[index++]];
             if (index == directions.Length)
             {
                 index = 0;

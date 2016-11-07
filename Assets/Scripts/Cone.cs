@@ -26,10 +26,10 @@ public class Cone : MonoBehaviour
     void Update()
     {
         Vector2 auxDifference = MovePlayer.player.position - transform.position;
-        Vector2 directionEnemy = GetComponent<Dude>().directionEnemy;
+        Vector2 directionEnemy = GetComponent<Npc>().direction;
 
         //Il personaggio è nel cono visuale?
-        owner.isViewPlayer = false;
+        owner.CanSeePlayer = false;
         if (Vector3.Angle(directionEnemy, auxDifference) < angleCone / 2 && auxDifference.magnitude < distanceCone)
         {
 
@@ -42,7 +42,7 @@ public class Cone : MonoBehaviour
 		    PlayerSeen();
             }
 
-            owner.isViewPlayer = !Convert.ToBoolean(hit.collider);
+            owner.CanSeePlayer = !Convert.ToBoolean(hit.collider);
         }
     }
 
