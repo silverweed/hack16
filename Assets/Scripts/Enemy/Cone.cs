@@ -9,12 +9,12 @@ public class Cone : MonoBehaviour
     public float damagePerSecond = 20f;
 
     LayerMask maskObstacle;
-    Dude owner;
+    Npc owner;
 
     // Use this for initialization
     void Awake ()
     {
-        owner = GetComponent<Dude>();
+        owner = GetComponent<Npc>();
     }
 
 
