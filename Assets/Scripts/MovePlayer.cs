@@ -5,6 +5,8 @@ using System.Collections.Generic;
 
 public class MovePlayer : MonoBehaviour
 {
+    public static Transform player;
+
     [Range(0, 10f)]
     public float speed;
 
@@ -18,6 +20,7 @@ public class MovePlayer : MonoBehaviour
 
     private void Awake()
     {
+        player = this.transform;
         rigidibodyPlayer = GetComponent<Rigidbody2D>();
         directions = new List<Vector2>();
         directionPlayer = new Vector2(Mathf.Clamp(directionPlayer.x, -1, 1), Mathf.Clamp(directionPlayer.y, -1, 1));
