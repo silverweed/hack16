@@ -43,6 +43,8 @@ public class MovePlayer : MonoBehaviour
 
             //prende la direzione di 3 frame fa (questo per evitare problemi di imprecisione con il device)
             directionPlayer = directions[0];
+
+	    GetComponent<SpriteRenderer>().flipX = vectorInput.x < 0;
         }
 
         //DEBUG
