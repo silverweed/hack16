@@ -6,16 +6,21 @@ public class Cone : MonoBehaviour
 {
     public float angleCone;
     public float distanceCone;
-    public LayerMask maskObstacle;
+    public float damagePerSecond = 20f;
 
-    private Dude I;
+    LayerMask maskObstacle;
+    Dude owner;
 
     // Use this for initialization
     void Awake ()
     {
-        I = GetComponent<Dude>();
-	
-	}
+        owner = GetComponent<Dude>();
+    }
+
+
+    void Start() {
+	maskObstacle = LayerMask.NameToLayer("Player");
+    }
 
     // Update is called once per frame
     void Update()
@@ -24,7 +29,7 @@ public class Cone : MonoBehaviour
         Vector2 directionEnemy = GetComponent<Dude>().directionEnemy;
 
         //Il personaggio è nel cono visuale?
-        I.isViewPlayer = false;
+        owner.isViewPlayer = false;
         if (Vector3.Angle(directionEnemy, auxDifference) < angleCone / 2 && auxDifference.magnitude < distanceCone)
         {
 
@@ -34,10 +39,15 @@ public class Cone : MonoBehaviour
             //tra personaggio e il soldato ci sono ostacoli?
             if (hit.collider == null)
             {
-                Debug.Log("preso");
+		    PlayerSeen();
             }
 
-            I.isViewPlayer = !Convert.ToBoolean(hit.collider);
+            owner.isViewPlayer = !Convert.ToBoolean(hit.collider);
         }
+    }
+
+    void PlayerSeen() {
+	UIManager.Instance.Damage.Active = true;
+	UIManager.Instance.Stressbar.Damage(Time.deltaTime * damagePerSecond);
     }
 }

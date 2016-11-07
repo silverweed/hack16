@@ -4,7 +4,8 @@ using System.Collections;
 
 public class Damage : MonoBehaviour {
 
-	public float transitionSpeed = 0.05f;
+	public float fadeInSpeed = 0.05f;
+	public float fadeOutSpeed = 0.05f;
 	public float pulseFrequency = 5f;
 
 	Image image;
@@ -12,7 +13,7 @@ public class Damage : MonoBehaviour {
 
 	// true: the damage builds up over time
 	// false: the damage decays over time
-	bool Active { get; set; }
+	public bool Active { get; set; }
 
 	// Use this for initialization
 	void Start() {
@@ -24,16 +25,18 @@ public class Damage : MonoBehaviour {
 		if (Input.GetKeyUp(KeyCode.F)) Active = !Active;
 
 		if (Active) {
-			level += transitionSpeed;
-			level += (2 + 7 * level) * transitionSpeed * Mathf.Sin(pulseFrequency * Time.time);
+			level += fadeInSpeed;
+			level += (2 + 7 * level) * fadeInSpeed / 2f * Mathf.Sin(pulseFrequency * Time.time);
 		} else {
 			if (level == 0f) return;
-			level -= 2f * transitionSpeed;
+			level -= fadeOutSpeed;
 		}
 
 
 		level = Mathf.Clamp(level, 0f, 1f);
 		var c = image.color;
 		image.color = new Color(c.r, c.g, c.b, level);
+
+		Active = false;
 	}
 }
