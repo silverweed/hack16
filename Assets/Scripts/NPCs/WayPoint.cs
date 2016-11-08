@@ -20,13 +20,13 @@ public class WayPoint : MonoBehaviour
     // Use this for initialization
     void Awake ()
     {
-        transformWayPoint = new Transform[transform.parent.GetChild(1).childCount];
+        transformWayPoint = new Transform[transform.parent.FindChild("WayPoints").childCount];
         npc = GetComponent<Npc>();
         index = 0;
         wait = true;
         notInverse = true;
 
-        foreach (Transform child in transform.parent.GetChild(1))
+        foreach (Transform child in transform.parent.FindChild("WayPoints"))
         {
             transformWayPoint[index] = child;
             index++;
