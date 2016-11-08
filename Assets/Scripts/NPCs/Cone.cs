@@ -18,7 +18,8 @@ public class Cone : MonoBehaviour
     }
 
 
-    void Start() {
+    void Start()
+    {
 	maskObstacle = LayerMask.NameToLayer("Obstacle");
     }
 
@@ -45,8 +46,9 @@ public class Cone : MonoBehaviour
         }
     }
 
-    void PlayerSeen() {
-	//UIManager.Instance.Damage.Active = true;
-	//UIManager.Instance.Stressbar.Damage(Time.deltaTime * damagePerSecond);
+    void PlayerSeen()
+    {
+	    UIManager.Instance.Damage.Active = true;
+	    UIManager.Instance.Stressbar.Damage(Time.deltaTime * damagePerSecond);
     }
 }
