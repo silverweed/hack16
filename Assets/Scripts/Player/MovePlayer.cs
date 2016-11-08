@@ -18,6 +18,8 @@ public class MovePlayer : MonoBehaviour
     private Vector2 vectorInput;
     private List<Vector2> directions;
 
+    private Animator animator;
+
     private void Awake()
     {
         player = this.transform;
@@ -29,6 +31,8 @@ public class MovePlayer : MonoBehaviour
         {
             directions.Add(vectorInput.normalized);
         }
+
+        animator = GetComponent<Animator>();
     }
 
     private void FixedUpdate()
@@ -37,15 +41,19 @@ public class MovePlayer : MonoBehaviour
 
         if (vectorInput != Vector2.zero)
         {
+            animator.SetBool("New Bool", true); // is moving (in Unity 4.4.2 non riesco a rinominare i parametri -_-")
             vectorInput *= (speed * Time.fixedDeltaTime);
             rigidibodyPlayer.MovePosition(rigidibodyPlayer.position + vectorInput);
             AdjustList();
 
             //prende la direzione di 3 frame fa (questo per evitare problemi di imprecisione con il device)
             directionPlayer = directions[0];
+            SetAnimatorDirection();
 
-	    GetComponent<SpriteRenderer>().flipX = vectorInput.x < 0;
+	    //GetComponent<SpriteRenderer>().flipX = vectorInput.x < 0; <-- non serve più: gestito nell'animazione
         }
+        else
+            animator.SetBool("New Bool", false);
 
         //DEBUG
         Debug.DrawLine(transform.position, transform.position + (Vector3)directionPlayer, Color.black);
@@ -55,5 +63,18 @@ public class MovePlayer : MonoBehaviour
     {
         directions.RemoveAt(0);
         directions.Add(vectorInput.normalized);
+    }
+
+    private void SetAnimatorDirection()
+    {
+        float threshold = 0.1f;
+        if (directionPlayer.x > threshold && Mathf.Abs(directionPlayer.y) < threshold)
+            animator.SetInteger("New Int", 0); // right
+        else if (Mathf.Abs(directionPlayer.x) < threshold && directionPlayer.y > threshold)
+            animator.SetInteger("New Int", 1); // up
+        else if (directionPlayer.x < -threshold && Mathf.Abs(directionPlayer.y) < threshold)
+            animator.SetInteger("New Int", 2); // left
+        else if (Mathf.Abs(directionPlayer.x) < threshold && directionPlayer.y < -threshold)
+            animator.SetInteger("New Int", 3); // down
     }
 }
