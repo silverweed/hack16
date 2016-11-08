@@ -3,8 +3,9 @@ using System.Collections;
 
 public class Paparazzo : Npc {
 
-	public float speed = 15f;
-	public float patrolRadius = 6f;
+	public float speed = 5f;
+	public float patrolRadius = 3f;
+	public float targetFwdDistance = 2f;
 
 	FSM ai;
 	Vector3? target;
@@ -16,9 +17,12 @@ public class Paparazzo : Npc {
 	}
 
 	void Update() {
-		if (target.HasValue) 
+		if (target.HasValue) {
+			print("pos: " + transform.position + ", vec: " + (transform.position - target.Value));
 			transform.Translate(Time.deltaTime * speed *
-				(transform.position - target.Value).normalized);
+				(-transform.position + target.Value).normalized);
+			// TODO rotation
+		}
 	}
 	
 	IEnumerator TakeDecisions() {
@@ -62,7 +66,7 @@ public class Paparazzo : Npc {
 			if (Vector3.Distance(owner.transform.position,
 						player.transform.position) < owner.patrolRadius) 
 			{
-				target = player.transform.position + (Vector3)MovePlayer.directionPlayer * 4f;
+				target = player.transform.position + (Vector3)MovePlayer.directionPlayer.normalized * owner.targetFwdDistance;
 				return true;
 			}
 			return false;

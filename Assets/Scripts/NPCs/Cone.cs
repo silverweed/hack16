@@ -18,7 +18,7 @@ public class Cone : MonoBehaviour
         owner = GetComponent<Npc>();
         maskObstacle = LayerMask.NameToLayer("Obstacle");
         coneSprite = transform.FindChild("Cone").GetComponent<SpriteRenderer>();
-        coneSprite.transform.localScale *= distanceCone;
+        coneSprite.transform.localScale = new Vector3(coneSprite.transform.localScale.x * distanceCone, coneSprite.transform.localScale.y * distanceCone, 0);
     }
 
     // Update is called once per frame
