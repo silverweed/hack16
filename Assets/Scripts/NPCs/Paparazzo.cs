@@ -48,8 +48,10 @@ public class Paparazzo : Npc {
 				}
 				break;
 			case State.MOVING:
-				if (Vector3.Distance(owner.transform.position, target) < 0.1f)
+				if (Vector3.Distance(owner.transform.position, target) < 0.1f) {
 					state = State.PATROLLING;
+					owner.target = null;
+				}
 				break;
 			}
 			print(state + ", target = " + target);

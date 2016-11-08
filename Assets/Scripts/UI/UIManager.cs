@@ -1,11 +1,13 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
+using System;
 using System.Collections;
 
 public class UIManager : Singleton<UIManager> {
 
+	public event Action OnScreenBlack;
 	public float fadeToBlackSpeed = 0.03f;
-
+	
 	Image blackScreen;
 
 	protected UIManager() {}
@@ -37,7 +39,9 @@ public class UIManager : Singleton<UIManager> {
 			alpha += fadeToBlackSpeed;
 			var c = blackScreen.color;
 			blackScreen.color = new Color(c.r, c.g, c.b, alpha);
-			yield return null;
+			yield return new WaitForSeconds(0.01f);;
 		}
+		if (OnScreenBlack != null)
+			OnScreenBlack();
 	}
 }
