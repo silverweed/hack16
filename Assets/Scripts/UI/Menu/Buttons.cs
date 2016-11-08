@@ -5,7 +5,7 @@ using System.Collections;
 public class Buttons : MonoBehaviour {
 
 	public void NewGame() {
-		SceneManager.LoadScene("Level1");
+		SceneManager.LoadScene("Cutscene_Start");
 	}
 
 	public void ExitGame() {

@@ -11,7 +11,7 @@ public class Cone : MonoBehaviour
 
     private bool bubbleBool;
     private GameObject actualBubble;
-    private Transform bubblePosition;
+    public Transform bubblePosition;
     private SpriteRenderer coneSprite;
     private LayerMask maskObstacle;
     private Npc owner;
@@ -24,7 +24,7 @@ public class Cone : MonoBehaviour
         maskObstacle = LayerMask.NameToLayer("Obstacle");
         coneSprite = transform.FindChild("Cone").GetComponent<SpriteRenderer>();
         coneSprite.transform.localScale = new Vector3(coneSprite.transform.localScale.x * distanceCone, coneSprite.transform.localScale.y * distanceCone, 0);
-        bubblePosition = transform.parent.FindChild("Bubble position");
+        
     }
 
     // Update is called once per frame
@@ -45,7 +45,7 @@ public class Cone : MonoBehaviour
             {
                 if (!bubbleBool)
                 {
-                    actualBubble = (GameObject)GameObject.Instantiate(bubble, bubblePosition.position, Quaternion.identity, transform.parent);
+                    actualBubble = (GameObject)GameObject.Instantiate(bubble, bubblePosition.position, Quaternion.identity, bubblePosition.parent);
                     Invoke("DestroyBubble", 1.0f);
                     bubbleBool = true;
                 }
