@@ -5,6 +5,7 @@ using System.Collections.Generic;
 public class Npc : MonoBehaviour
 {
     public Vector2 direction;
+
     protected bool canSeePlayer;
     protected Dictionary<Direction, Vector2> dictonaryVector;
 
