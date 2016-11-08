@@ -20,8 +20,10 @@ public class Dude : Npc
 
     public void Turn()
     {
+        Debug.Log("Begin Turn()");
         if (!CanSeePlayer)
         {
+            Debug.Log("in !CanSeePlayer Turn()");
             direction = dictonaryVector[directions[index++]];
             if (index == directions.Length)
             {
@@ -30,5 +32,7 @@ public class Dude : Npc
         }
 
         Invoke("Turn", timeWait);
+
+        Debug.Log("End Turn()");
     }
 }

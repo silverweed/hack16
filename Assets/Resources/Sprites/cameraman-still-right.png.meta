@@ -1,11 +1,9 @@
 fileFormatVersion: 2
-guid: 1dd03fe1daeec7e478146d5775452d03
-timeCreated: 1478613313
+guid: 2dd3148588b5d41febcd12d891280e6a
+timeCreated: 1478610751
 licenseType: Free
 TextureImporter:
-  fileIDToRecycleName:
-    21300000: lavoro_0
-    21300002: lavoro_1
+  fileIDToRecycleName: {}
   serializedVersion: 2
   mipmaps:
     mipMapMode: 0
@@ -31,8 +29,8 @@ TextureImporter:
   textureFormat: -1
   maxTextureSize: 2048
   textureSettings:
-    filterMode: 0
-    aniso: 16
+    filterMode: -1
+    aniso: -1
     mipBias: -1
     wrapMode: 1
   nPOTScale: 0
@@ -40,7 +38,7 @@ TextureImporter:
   rGBM: 0
   compressionQuality: 50
   allowsAlphaSplitting: 0
-  spriteMode: 2
+  spriteMode: 1
   spriteExtrude: 1
   spriteMeshType: 1
   alignment: 0
@@ -53,33 +51,7 @@ TextureImporter:
   buildTargetSettings: []
   spriteSheet:
     serializedVersion: 2
-    sprites:
-    - serializedVersion: 2
-      name: lavoro_0
-      rect:
-        serializedVersion: 2
-        x: 60
-        y: 62
-        width: 64
-        height: 53
-      alignment: 7
-      pivot: {x: 0.5, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      tessellationDetail: 0
-    - serializedVersion: 2
-      name: lavoro_1
-      rect:
-        serializedVersion: 2
-        x: 61
-        y: 33
-        width: 63
-        height: 29
-      alignment: 2
-      pivot: {x: 0.5, y: 1}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      tessellationDetail: 0
+    sprites: []
     outline: []
   spritePackingTag: 
   userData: 
