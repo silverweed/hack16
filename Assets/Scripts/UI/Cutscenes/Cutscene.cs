@@ -9,6 +9,7 @@ public class Cutscene : MonoBehaviour {
 	[Tooltip("Text to write. Pipe symbol (`|`) means newline.")]
 	public string str;
 	public bool drawImage;
+	public float textWait = 0.08f;
 	public float fadeSpeed = 0.005f;
 
 	Text text;
@@ -38,22 +39,35 @@ public class Cutscene : MonoBehaviour {
 		int idx = 0;
 		while (idx < str.Length) {
 			char c = str[idx];
-			if (c == '|')
+			// Handle special characters
+			switch (c) {
+			case '^':
+				// wait character
+				break;
+			case '|':
 				text.text += "\r\n";
-			else
+				break;
+			default:
 				text.text += c;
-			float wait = 0.10f;
+				break;
+			}
+
+			// Adjust wait
+			float wait = textWait;
 			switch (c) {
 			case ';': 
 			case ':':
 			case ',':
-			case '"':
-			case '\'':
 				wait *= 2;
 				break;
 			case '.':
+				if (idx < str.Length - 1 && str[idx+1] == '.')
+					break;
+				wait *= 4;
+				break;
 			case '?':
 			case '!':
+			case '^':
 				wait *= 4;
 				break;
 			case '|':
