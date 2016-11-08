@@ -16,17 +16,13 @@ public class Cone : MonoBehaviour
     void Awake ()
     {
         owner = GetComponent<Npc>();
-    }
-
-
-    void Start()
-    {
-	maskObstacle = LayerMask.NameToLayer("Obstacle");
-	coneSprite = transform.FindChild("Cone").GetComponent<SpriteRenderer>();
+        maskObstacle = LayerMask.NameToLayer("Obstacle");
+        coneSprite = transform.FindChild("Cone").GetComponent<SpriteRenderer>();
+        coneSprite.transform.localScale *= distanceCone;
     }
 
     // Update is called once per frame
-    void Update()
+    private void Update()
     {
         Vector2 auxDifference = MovePlayer.player.position - transform.position;
         Vector2 directionEnemy = GetComponent<Npc>().direction;
@@ -56,14 +52,9 @@ public class Cone : MonoBehaviour
 	    UIManager.Instance.Stressbar.Damage(Time.deltaTime * damagePerSecond);
     }
 
-    void AdjustDirection() {
-	if (owner.direction == Vector2.up)
-		coneSprite.transform.eulerAngles = new Vector3(0, 0, -90);
-	else if (owner.direction == Vector2.down)
-		coneSprite.transform.eulerAngles = new Vector3(0, 0, 90);
-	else if (owner.direction == Vector2.left)
-		coneSprite.transform.eulerAngles = new Vector3(0, 0, 0);
-	else if (owner.direction == Vector2.right)
-		coneSprite.transform.eulerAngles = new Vector3(0, 0, 180);
+    void AdjustDirection()
+    {
+        var angle = Mathf.Atan2(owner.direction.y, owner.direction.x) * Mathf.Rad2Deg;
+        coneSprite.transform.rotation = Quaternion.AngleAxis(angle, Vector3.forward);
     }
 }
