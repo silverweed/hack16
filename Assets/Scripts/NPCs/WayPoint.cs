@@ -51,6 +51,14 @@ public class WayPoint : MonoBehaviour
         CancelInvoke();
     }
 
+    public void Return()
+    {
+        wait = false;
+        directionWay = (transformWayPoint[0].position - this.transform.position).normalized;
+        inverse = false;
+        index = -1;
+    }
+
     private void CreateDirection()
     {
         if (!inverse)
@@ -72,10 +80,9 @@ public class WayPoint : MonoBehaviour
 	// Update is called once per frame
 	private void Update ()
     {
-        npc.direction = directionWay;
-
         if (!wait)
         {
+            npc.direction = directionWay;
             transform.Translate(directionWay * speed);
 
             if (!inverse)

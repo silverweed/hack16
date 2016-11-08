@@ -18,7 +18,8 @@ public class Cone : MonoBehaviour
     }
 
 
-    void Start() {
+    void Start()
+    {
 	maskObstacle = LayerMask.NameToLayer("Obstacle");
     }
 
@@ -38,6 +39,7 @@ public class Cone : MonoBehaviour
             //tra personaggio e il soldato ci sono ostacoli?
             if (hit.collider == null)
             {
+                Debug.Log("preso");
                 PlayerSeen();
             }
 
@@ -45,8 +47,9 @@ public class Cone : MonoBehaviour
         }
     }
 
-    void PlayerSeen() {
-	//UIManager.Instance.Damage.Active = true;
-	//UIManager.Instance.Stressbar.Damage(Time.deltaTime * damagePerSecond);
+    void PlayerSeen()
+    {
+	    UIManager.Instance.Damage.Active = true;
+	    UIManager.Instance.Stressbar.Damage(Time.deltaTime * damagePerSecond);
     }
 }
