@@ -10,7 +10,7 @@ public class WayPoint : MonoBehaviour
     private Transform[] transformWayPoint;
     private Vector2 directionWay;
     public bool wait { get; set; }
-    private bool inverse;
+    private bool notInverse;
 
     [Range(0, 5)]
     public float timeWait;
@@ -24,7 +24,7 @@ public class WayPoint : MonoBehaviour
         npc = GetComponent<Npc>();
         index = 0;
         wait = true;
-        inverse = false;
+        notInverse = true;
 
         foreach (Transform child in transform.parent.GetChild(1))
         {
@@ -55,20 +55,13 @@ public class WayPoint : MonoBehaviour
     {
         wait = false;
         directionWay = (transformWayPoint[0].position - this.transform.position).normalized;
-        inverse = false;
+        notInverse = true;
         index = -1;
     }
 
     private void CreateDirection()
     {
-        if (!inverse)
-        {
-            directionWay = (transformWayPoint[index + 1].position - transformWayPoint[index].position).normalized;
-        }
-        else
-        {
-            directionWay = (transformWayPoint[index - 1].position - transformWayPoint[index].position).normalized;
-        }
+        directionWay = (transformWayPoint[getNextIndex()].position - transform.position).normalized;
     }
 
     private void Go()
@@ -84,43 +77,35 @@ public class WayPoint : MonoBehaviour
         {
             npc.direction = directionWay;
             transform.Translate(directionWay * speed);
-
-            if (!inverse)
-            {
-                Up();
-            }
-            else
-            {
-                Down();
-            }
+            Up();
         }
 	}
 
-    private void Up()
+    private int getNextIndex()
     {
-        if (transformWayPoint[index + 1].GetComponent<BoxCollider2D>().bounds.Contains(transform.position))
+        if (notInverse)
         {
-            index++;
-
-            if (index == transformWayPoint.Length - 1)
-            {
-                inverse = true;
-            }
-
-            wait = true;
-            Invoke("Go", timeWait);
+            return index + 1;
+        }
+        else
+        {
+            return index - 1;
         }
     }
 
-    private void Down()
+    private void Up()
     {
-        if (transformWayPoint[index - 1].GetComponent<BoxCollider2D>().bounds.Contains(transform.position))
+        if (transformWayPoint[getNextIndex()].GetComponent<BoxCollider2D>().bounds.Contains(transform.position))
         {
-            index--;
+            index = getNextIndex();
 
+            if (index == transformWayPoint.Length - 1)
+            {
+                notInverse = false;
+            }
             if (index == 0)
             {
-                inverse = false;
+                notInverse = true;
             }
 
             wait = true;

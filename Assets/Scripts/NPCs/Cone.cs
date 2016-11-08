@@ -39,7 +39,6 @@ public class Cone : MonoBehaviour
             //tra personaggio e il soldato ci sono ostacoli?
             if (hit.collider == null)
             {
-                Debug.Log("preso");
                 PlayerSeen();
             }
 
