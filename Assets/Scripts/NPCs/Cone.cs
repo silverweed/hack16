@@ -8,6 +8,7 @@ public class Cone : MonoBehaviour
     public float distanceCone;
     public float damagePerSecond = 20f;
 
+    private SpriteRenderer coneSprite;
     private LayerMask maskObstacle;
     private Npc owner;
 
@@ -21,6 +22,7 @@ public class Cone : MonoBehaviour
     void Start()
     {
 	maskObstacle = LayerMask.NameToLayer("Obstacle");
+	coneSprite = transform.FindChild("Cone").GetComponent<SpriteRenderer>();
     }
 
     // Update is called once per frame
@@ -44,11 +46,24 @@ public class Cone : MonoBehaviour
 
             owner.CanSeePlayer = !Convert.ToBoolean(hit.collider);
         }
+
+	AdjustDirection();
     }
 
     void PlayerSeen()
     {
 	    UIManager.Instance.Damage.Active = true;
 	    UIManager.Instance.Stressbar.Damage(Time.deltaTime * damagePerSecond);
+    }
+
+    void AdjustDirection() {
+	if (owner.direction == Vector2.up)
+		coneSprite.transform.eulerAngles = new Vector3(0, 0, -90);
+	else if (owner.direction == Vector2.down)
+		coneSprite.transform.eulerAngles = new Vector3(0, 0, 90);
+	else if (owner.direction == Vector2.left)
+		coneSprite.transform.eulerAngles = new Vector3(0, 0, 0);
+	else if (owner.direction == Vector2.right)
+		coneSprite.transform.eulerAngles = new Vector3(0, 0, 180);
     }
 }
