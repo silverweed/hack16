@@ -8,13 +8,15 @@ public class Cone : MonoBehaviour
     public float angleCone;
     public float distanceCone;
     public float damagePerSecond = 20f;
+    public Transform bubblePosition;
 
+    private float lastSeenTime;
     private bool bubbleBool;
     private GameObject actualBubble;
-    public Transform bubblePosition;
     private SpriteRenderer coneSprite;
     private LayerMask maskObstacle;
     private Npc owner;
+    private Color origColor;
 
     // Use this for initialization
     void Awake ()
@@ -23,7 +25,9 @@ public class Cone : MonoBehaviour
         owner = GetComponent<Npc>();
         maskObstacle = LayerMask.NameToLayer("Obstacle");
         coneSprite = transform.FindChild("Cone").GetComponent<SpriteRenderer>();
-        coneSprite.transform.localScale = new Vector3(coneSprite.transform.localScale.x * distanceCone, coneSprite.transform.localScale.y * distanceCone, 0);
+        coneSprite.transform.localScale = new Vector3(coneSprite.transform.localScale.x * distanceCone,
+			coneSprite.transform.localScale.y * distanceCone, 0);
+	origColor = coneSprite.color;
         
     }
 
@@ -50,12 +54,14 @@ public class Cone : MonoBehaviour
                     bubbleBool = true;
                 }
                 PlayerSeen();
+		lastSeenTime = Time.time;
             }
 
             owner.CanSeePlayer = !Convert.ToBoolean(hit.collider);
         }
 
-	    AdjustDirection();
+    	AdjustDirection();
+	AdjustColor();
     }
 
     void DestroyBubble()
@@ -74,5 +80,13 @@ public class Cone : MonoBehaviour
     {
         var angle = Mathf.Atan2(owner.direction.y, owner.direction.x) * Mathf.Rad2Deg;
         coneSprite.transform.rotation = Quaternion.AngleAxis(angle, Vector3.forward);
+    }
+
+    void AdjustColor() {
+	if (owner.CanSeePlayer) {
+		coneSprite.color = new Color(238, 0, 0, 255);
+	} else if (Time.time - lastSeenTime > 0.5f) {
+		coneSprite.color = origColor;
+	}
     }
 }

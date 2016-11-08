@@ -16,8 +16,9 @@ namespace FMOD.Studio
         public const string dll    = "__Internal";
 #elif (UNITY_PS4 || UNITY_WIIU || UNITY_PSP2) && !UNITY_EDITOR
 		public const string dll    = "libfmodstudio";
+#elif UNITY_EDITOR_LINUX
+	public const string dll    = "libfmodstudio.so";
 #elif UNITY_EDITOR || ((UNITY_STANDALONE_WIN || UNITY_STANDALONE_OSX) && DEVELOPMENT_BUILD)
-        //public const string dll    = "libfmodstudio.so";
         public const string dll    = "fmodstudiol";
 #else
 		public const string dll    = "fmodstudio";
