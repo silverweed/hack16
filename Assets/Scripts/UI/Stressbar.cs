@@ -12,6 +12,10 @@ public class Stressbar : MonoBehaviour {
 	float lastDamageTime;
 	bool damaged;
 
+	public float CurStressPercentage {
+		get { return slider.value / slider.maxValue; }
+	}
+
 	void Start() {
 		slider = GetComponent<Slider>();
 		fillArea = transform.FindChild("Fill Area").gameObject.GetComponentInChildren<Image>();
