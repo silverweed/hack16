@@ -31,6 +31,7 @@ public class Cone : MonoBehaviour
         owner.CanSeePlayer = false;
         if (Vector3.Angle(directionEnemy, auxDifference) < angleCone / 2 && auxDifference.magnitude < distanceCone)
         {
+            Debug.Log(auxDifference.magnitude);
             float dist = Vector2.Distance(MovePlayer.player.position, transform.position);
             RaycastHit2D hit = Physics2D.Raycast(transform.position, auxDifference.normalized, dist, maskObstacle);
 
@@ -43,6 +44,7 @@ public class Cone : MonoBehaviour
             owner.CanSeePlayer = !Convert.ToBoolean(hit.collider);
         }
 
+        Debug.Log("AdjustDirection()!!!!!!!!!!!!!!!!");
 	AdjustDirection();
     }
 
