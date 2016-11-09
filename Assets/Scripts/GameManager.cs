@@ -2,13 +2,23 @@
 using UnityEngine.SceneManagement;
 using System.Collections;
 
-public class GameManager : Singleton<GameManager> {
+public class GameManager : MonoBehaviour {
 	
 	string nextScene;
 
 	public bool IsGameOver {
 		get;
 		private set;
+	}
+
+	public static GameManager Instance { get; private set; }
+
+	private GameManager() {}
+
+	void Awake() {
+		if (Instance != null && Instance != this)
+			Destroy(gameObject);
+		Instance = this;
 	}
 
 	void Start() {

@@ -3,14 +3,17 @@ using UnityEngine.UI;
 using System;
 using System.Collections;
 
-public class UIManager : Singleton<UIManager> {
+public class UIManager : MonoBehaviour {
 
 	public event Action OnScreenBlack;
 	public float fadeToBlackSpeed = 0.03f;
 	
 	Image blackScreen;
 
-	protected UIManager() {}
+	// Make this class a singleton
+	public static UIManager Instance { get; private set; }
+
+	private UIManager() {}
 
 	public Damage Damage { 
 		get;
@@ -23,7 +26,10 @@ public class UIManager : Singleton<UIManager> {
 	}
 
 	// Use this for initialization
-	void Start() {
+	void Awake() {
+		if (Instance != null && Instance != this)
+			Destroy(gameObject);
+		Instance = this;
 		Damage = GameObject.FindObjectOfType<Damage>();
 		Stressbar = GameObject.FindObjectOfType<Stressbar>();
 		blackScreen = GameObject.Find("BlackScreen").GetComponent<Image>();

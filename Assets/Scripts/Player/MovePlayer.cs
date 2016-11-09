@@ -35,6 +35,13 @@ public class MovePlayer : MonoBehaviour
         animator = GetComponent<Animator>();
     }
 
+    void Start() {
+	UIManager.Instance.Stressbar.OnStressFull += () => {
+		animator.SetBool("Is Fainting", true);
+		enabled = false;
+	};
+    }
+
     private void FixedUpdate()
     {
         vectorInput = new Vector2(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical"));
