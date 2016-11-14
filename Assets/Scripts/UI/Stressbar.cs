@@ -51,8 +51,8 @@ public class Stressbar : MonoBehaviour {
 	IEnumerator Unfill() {
 		while (unfillArea.rectTransform.anchorMax.x < fillArea.rectTransform.anchorMax.x) {
 			if (damaged) yield break;
-			unfillArea.rectTransform.anchorMax = unfillArea.rectTransform.anchorMax + new Vector2(0.02f, 0f);
-			yield return new WaitForSeconds(0.1f);
+			unfillArea.rectTransform.anchorMax = unfillArea.rectTransform.anchorMax + new Vector2(0.01f, 0f);
+			yield return new WaitForSeconds(0.02f);
 		}
 
 		yield return null;
